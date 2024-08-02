@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import connect from "react-redux/lib/components/connect";
 
-import { selectTab, showTabs } from "../common/tab/tabActions";
-import { create } from "./billingCycleActions";
+import { create, update, remove, init } from "./billingCycleActions";
 
 import ContentHeader from "../common/template/contentHeader";
 import Content from "../common/template/content";
@@ -17,8 +16,7 @@ import Form from "./billingCycleForm";
 
 class BillingCycle extends Component {
   componentWillMount() {
-    this.props.selectTab("tabList");
-    this.props.showTabs("tabList", "tabCreate");
+    this.props.init()
   }
 
   render() {
@@ -38,13 +36,26 @@ class BillingCycle extends Component {
                 <List />
               </TabContent>
               <TabContent id="tabCreate">
-                <Form onSubmit={this.props.create} />
+                <Form
+                  onSubmit={this.props.create}
+                  submitLabel="Incluir"
+                  submitClass="primary"
+                />
               </TabContent>
               <TabContent id="tabUpdate">
-                <h1>Alterar</h1>
+                <Form
+                  onSubmit={this.props.update}
+                  submitLabel="Alterar"
+                  submitClass="warning"
+                />
               </TabContent>
               <TabContent id="tabDelete">
-                <h1>Excluir</h1>
+                <Form
+                  onSubmit={this.props.remove}
+                  submitLabel="Excluir"
+                  submitClass="danger"
+                  readOnly={true}
+                />
               </TabContent>
             </TabsContent>
           </Tabs>
@@ -55,6 +66,6 @@ class BillingCycle extends Component {
 }
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ selectTab, showTabs, create }, dispatch);
+  bindActionCreators({ create, update, remove, init }, dispatch);
 
 export default connect(null, mapDispatchToProps)(BillingCycle);
