@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import connect from "react-redux/lib/components/connect";
-
-import { create, update, remove, init } from "./billingCycleActions";
+import { connect } from 'react-redux'
 
 import ContentHeader from "../common/template/contentHeader";
 import Content from "../common/template/content";
@@ -11,18 +9,20 @@ import TabsHeader from "../common/tab/tabsHeader";
 import TabsContent from "../common/tab/tabsContent";
 import TabHeader from "../common/tab/tabHeader";
 import TabContent from "../common/tab/tabContent";
+import { init, create, update, remove } from "./billingCycleActions";
+
 import List from "./billingCycleList";
 import Form from "./billingCycleForm";
 
 class BillingCycle extends Component {
   componentWillMount() {
-    this.props.init()
+    this.props.init();
   }
 
   render() {
     return (
       <div>
-        <ContentHeader title="Ciclos de Pagamento" small="Cadastro" />
+        <ContentHeader title="Ciclos de Pagamentos" small="Cadastro" />
         <Content>
           <Tabs>
             <TabsHeader>
@@ -46,15 +46,15 @@ class BillingCycle extends Component {
                 <Form
                   onSubmit={this.props.update}
                   submitLabel="Alterar"
-                  submitClass="warning"
+                  submitClass="info"
                 />
               </TabContent>
               <TabContent id="tabDelete">
                 <Form
                   onSubmit={this.props.remove}
+                  readOnly={true}
                   submitLabel="Excluir"
                   submitClass="danger"
-                  readOnly={true}
                 />
               </TabContent>
             </TabsContent>
@@ -66,6 +66,13 @@ class BillingCycle extends Component {
 }
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ create, update, remove, init }, dispatch);
-
+  bindActionCreators(
+    {
+      init,
+      create,
+      update,
+      remove,
+    },
+    dispatch
+  );
 export default connect(null, mapDispatchToProps)(BillingCycle);

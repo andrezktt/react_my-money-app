@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { bindActionCreators } from "redux";
-import connect from "react-redux/lib/components/connect";
+import { connect } from 'react-redux'
 
 import { getList, showUpdate, showDelete } from "./billingCycleActions";
 
